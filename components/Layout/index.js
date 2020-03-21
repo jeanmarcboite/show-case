@@ -3,7 +3,7 @@ import Sidebar from "react-sidebar";
 import SidebarContent from "./Menu";
 import Header from "./Header";
 import { Collapse } from "react-collapse";
-import Toggle from "react-toggle";
+import Switch from "react-switch";
 
 const styles = {
   contentHeaderMenuLink: {
@@ -28,6 +28,7 @@ class Layout extends React.Component {
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
     this.toggleOpen = this.toggleOpen.bind(this);
     this.onSetOpen = this.onSetOpen.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -59,8 +60,8 @@ class Layout extends React.Component {
     }
   }
 
-  handleChange(event) {
-    // do something with event.target.checked
+  handleChange(checked) {
+    this.setState({ hasInfo: checked });
   }
 
   render() {
@@ -95,14 +96,13 @@ class Layout extends React.Component {
           <div style={styles.content}>
             <div>
               <div>
-                <Toggle
-                  id="info-toggle"
-                  defaultChecked={this.state.hasInfo}
-                  onChange={({ target: { checked } }) =>
-                    this.setState({ hasInfo: checked })
-                  }
-                />
-                <label htmlFor="info-toggle">App info</label>
+                <label>
+                  <span>Display info:</span>
+                  <Switch
+                    onChange={this.handleChange}
+                    checked={this.state.hasInfo}
+                  />
+                </label>
               </div>
               <Collapse isOpened={hasInfo}>
                 <p>
