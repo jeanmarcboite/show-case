@@ -3,6 +3,8 @@ import Sidebar from "react-sidebar";
 import SidebarContent from "./Menu";
 import Header from "./Header";
 import { Collapse } from "react-collapse";
+import Toggle from "react-toggle";
+
 const styles = {
   contentHeaderMenuLink: {
     textDecoration: "none",
@@ -57,6 +59,10 @@ class Layout extends React.Component {
     }
   }
 
+  handleChange(event) {
+    // do something with event.target.checked
+  }
+
   render() {
     const sidebar = <SidebarContent />;
     const { hasInfo } = this.state;
@@ -88,18 +94,15 @@ class Layout extends React.Component {
         <Header title={contentHeader}>
           <div style={styles.content}>
             <div>
-              <div className="config">
-                <label className="label">
-                  About:
-                  <input
-                    className="input"
-                    type="checkbox"
-                    checked={hasInfo}
-                    onChange={({ target: { checked } }) =>
-                      this.setState({ hasInfo: checked })
-                    }
-                  />
-                </label>
+              <div>
+                <Toggle
+                  id="info-toggle"
+                  defaultChecked={this.state.hasInfo}
+                  onChange={({ target: { checked } }) =>
+                    this.setState({ hasInfo: checked })
+                  }
+                />
+                <label htmlFor="info-toggle">App info</label>
               </div>
               <Collapse isOpened={hasInfo}>
                 <p>
