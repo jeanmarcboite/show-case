@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "react-sidebar";
 import SidebarContent from "./Menu";
 import Header from "./Header";
+import { Collapse } from "react-collapse";
 const styles = {
   contentHeaderMenuLink: {
     textDecoration: "none",
@@ -16,10 +17,10 @@ const styles = {
 class Layout extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       docked: false,
-      open: false
+      open: false,
+      hasInfo: false
     };
 
     this.mediaQueryChanged = this.mediaQueryChanged.bind(this);
@@ -58,6 +59,7 @@ class Layout extends React.Component {
 
   render() {
     const sidebar = <SidebarContent />;
+    const { hasInfo } = this.state;
 
     const contentHeader = (
       <span>
@@ -85,19 +87,37 @@ class Layout extends React.Component {
       <Sidebar {...sidebarProps}>
         <Header title={contentHeader}>
           <div style={styles.content}>
-            <p>
-              This example will automatically dock the sidebar if the page width
-              is above 800px (which is currently {this.state.docked.toString()}
-              ).
-            </p>
-            <p>
-              This functionality should live in the component that renders the
-              sidebar. This way you&#39;re able to modify the sidebar and main
-              content based on the responsiveness data. For example, the menu
-              button in the header of the content is now{" "}
-              {this.state.docked ? "hidden" : "shown"} because the sidebar is{" "}
-              {!this.state.docked && "not"} visible.
-            </p>
+            <div>
+              <div className="config">
+                <label className="label">
+                  About:
+                  <input
+                    className="input"
+                    type="checkbox"
+                    checked={hasInfo}
+                    onChange={({ target: { checked } }) =>
+                      this.setState({ hasInfo: checked })
+                    }
+                  />
+                </label>
+              </div>
+              <Collapse isOpened={hasInfo}>
+                <p>
+                  This example will automatically dock the sidebar if the page
+                  width is above 800px (which is currently{" "}
+                  {this.state.docked.toString()}
+                  ).
+                </p>
+                <p>
+                  This functionality should live in the component that renders
+                  the sidebar. This way you&#39;re able to modify the sidebar
+                  and main content based on the responsiveness data. For
+                  example, the menu button in the header of the content is now{" "}
+                  {this.state.docked ? "hidden" : "shown"} because the sidebar
+                  is {!this.state.docked && "not"} visible.
+                </p>
+              </Collapse>
+            </div>
           </div>
         </Header>
         {this.props.children}

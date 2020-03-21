@@ -21,7 +21,7 @@ const styles = {
   content: {
     padding: "16px",
     height: "100%",
-    backgroundColor: "white"
+    backgroundColor: "light-gray"
   }
 };
 
@@ -30,7 +30,11 @@ const SidebarContent = props => {
     ? { ...styles.sidebar, ...props.style }
     : styles.sidebar;
 
-  const links = [];
+  const links = [
+    <a key="x" href="reader" style={styles.sidebarLink}>
+      Ereader
+    </a>
+  ];
 
   for (let ind = 0; ind < 10; ind++) {
     links.push(
@@ -43,11 +47,8 @@ const SidebarContent = props => {
   return (
     <Header title="Menu" style={style}>
       <div style={styles.content}>
-        <a href="index.html" style={styles.sidebarLink}>
+        <a href="/" style={styles.sidebarLink}>
           Home
-        </a>
-        <a href="responsive_example.html" style={styles.sidebarLink}>
-          Responsive Example
         </a>
         <div style={styles.divider} />
         {links}

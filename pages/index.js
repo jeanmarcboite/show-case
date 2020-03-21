@@ -1,9 +1,19 @@
 import Layout from "../components/Layout";
+const styles = {
+  contentHeaderMenuLink: {
+    textDecoration: "none",
+    color: "white",
+    padding: 8
+  },
+  content: {
+    padding: "16px"
+  }
+};
 
 export default function Index() {
   return (
     <div>
-      <Layout> in page, in Layout</Layout> in page, outside Layout
+      <Layout>HOME</Layout> in page, outside Layout
     </div>
   );
 }
